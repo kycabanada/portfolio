@@ -9,17 +9,39 @@ export const profile = {
   // While this is empty, the GitHub link stays hidden.
   github: "https://github.com/kycabanada",
 
-  photo: "/kristine.jpg", // put the file in /public
+  photo: "/kristine-portrait.jpg", // put the file in /public
+  // Same photo with the background removed, for the full-screen opener.
+  cutout: "/kristine-cutout.webp",
   status: "4th-year BS IT student · Open to internships",
 
   resumeFile: "/Kristine-Cabanada-Resume.pdf",
 
+  // Typed out one after another under the big heading.
+  roles: ["Full-Stack Web Developer", "Database Designer", "BS IT Student @ UST"],
+  // Shown as chips under the intro.
+  stack: ["React", "TypeScript", "ASP.NET", "PHP", "MySQL"],
+  // Printed down the lanyard strap.
+  strap: "UST · BS IT · UST · BS IT ·",
+
   intro:
     "I'm a fourth-year IT student at the University of Santo Tomas. I build full-stack web apps and design the databases behind them.",
+
+  // About section chips. Empty strings show as "Coming soon" slots.
+  learning: ["", "", ""], // what you're picking up now, e.g. "Next.js", "Unit testing", "AWS"
+  interests: ["", "", ""], // life outside code, e.g. "Photography", "Badminton", "K-dramas"
 
   about: [
     "I work mainly with React, TypeScript, ASP.NET, PHP and MySQL, and I care most about building things that are easy for people to use.",
     "Right now I'm working on AGOS, my capstone: an offline-first transit companion for Pasig River Ferry commuters.",
+  ],
+
+  // Photos in the About section. Put the files in /public/about and set "src",
+  // e.g. src: "/about/hackathon.jpg". Until then a placeholder is shown.
+  // The first photo is shown large. Edit the captions to describe your pictures.
+  aboutPhotos: [
+    { src: "", caption: "At a tech event" },
+    { src: "", caption: "Building AGOS" },
+    { src: "", caption: "With my team" },
   ],
 
   education: {

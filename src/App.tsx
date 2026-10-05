@@ -1,56 +1,59 @@
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Projects from "./components/Projects";
+import Intro from "./components/Intro";
+import Portfolio from "./components/Portfolio";
 import About from "./components/About";
-import Skills from "./components/Skills";
 import Contact from "./components/Contact";
-import { GitHubIcon, LinkedInIcon } from "./components/Icons";
-import { profile } from "./data/profile";
+import Journey from "./components/Journey";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
 import { useReveal } from "./useReveal";
+import ProjectPage from "./components/ProjectPage";
+import { projects } from "./data/projects";
+
+// "#/projects/agos" opens that project's own page; any other link shows the main page.
+function useOpenProject() {
+  const read = () => {
+    const m = location.hash.match(/^#\/projects\/([\w-]+)/);
+    return m ? projects.find((p) => p.id === m[1]) : undefined;
+  };
+  const [project, setProject] = useState(read);
+  useEffect(() => {
+    const onHash = () => setProject(read());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+  return project;
+}
 
 export default function App() {
   useReveal();
+  const openProject = useOpenProject();
+
+  if (openProject) return <ProjectPage project={openProject} />;
 
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only z-[70] rounded-full bg-ink px-5 py-3 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="mx-auto max-w-6xl px-5 sm:px-8">
+      <main id="main">
         <Hero />
-        <Projects />
+        <Intro />
         <About />
-        <Skills />
+        <Journey />
+        <Portfolio />
+        <Testimonials />
         <Contact />
       </main>
-      <footer className="mt-16 border-t border-rule">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p>
-            © {new Date().getFullYear()} {profile.name}. Built with React,
-            TypeScript and Tailwind CSS.
-          </p>
-          <p className="flex gap-4">
-            {profile.github && (
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="hover:text-river"
-              >
-                <GitHubIcon />
-              </a>
-            )}
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="hover:text-river"
-            >
-              <LinkedInIcon />
-            </a>
-          </p>
-        </div>
-      </footer>
+
+      <Footer />
+
     </>
   );
 }

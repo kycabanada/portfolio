@@ -19,17 +19,25 @@ Then open the link shown in the terminal (usually http://localhost:5173).
 | What | File |
 |---|---|
 | Name, intro, links, photo, status badge, education, leadership | `src/data/profile.ts` |
-| Your photo | `public/kristine.jpg` |
+| Your photo | `public/kristine-portrait.jpg` |
 | Projects | `src/data/projects.ts` |
-| Skills and certifications | `src/data/skills.ts` |
+| Skills | `src/data/skills.ts` |
+| Certifications | `src/data/certifications.ts` |
 | Résumé PDF | `public/Kristine-Cabanada-Resume.pdf` |
 | Colors and fonts | `src/index.css` |
 
 Things still to fill in:
 
-1. `liveUrl`, `codeUrl` and `image` for each project in `src/data/projects.ts`.
-   Put screenshots in `public/screenshots/` and reference them as `/screenshots/agos.png`.
-2. `WEB3FORMS_ACCESS_KEY` in `src/data/profile.ts` so the contact form emails you directly
+1. Project screenshots: put them in `public/screenshots/` (best size 1600 × 1000) and set
+   `image: "/screenshots/agos.png"` on the project in `src/data/projects.ts`.
+   Also add `liveUrl` and `codeUrl` there if the project has them.
+   Until then, each project shows a placeholder.
+2. Certificate pictures: put them in `public/certificates/` (landscape, about 1400 × 1000) and set
+   `image: "/certificates/ccna-itn.png"` in `src/data/certifications.ts`.
+   Add `verifyUrl` (and `credentialId`) to show a "Verify credential" link.
+3. About photos: put them in `public/about/` and set `src` (and the caption) in
+   `aboutPhotos` in `src/data/profile.ts`. The first photo is shown large.
+4. `WEB3FORMS_ACCESS_KEY` in `src/data/profile.ts` so the contact form emails you directly
    (free key from https://web3forms.com). Until then, the form opens the visitor's email app.
 
 ## Push to GitHub
