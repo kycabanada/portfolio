@@ -4,8 +4,7 @@
 
 **Full-stack web developer and 4th-year BS IT student at the University of Santo Tomas**
 
-<!-- Replace with your live link once deployed, e.g. https://kristinecabanada.vercel.app -->
-[**🌐 View the live site**](#) · [**📄 Résumé**](public/Kristine-Cabanada-Resume.pdf) · [**💼 LinkedIn**](https://www.linkedin.com/in/kristine-cabanada-57a74b279/) · [**✉️ Email**](mailto:tin.cabanada@gmail.com)
+[**🌐 View the live site**](https://kristine-portfolio-one.vercel.app) · [**📄 Résumé**](public/Kristine-Cabanada-Resume.pdf) · [**💼 LinkedIn**](https://www.linkedin.com/in/kristine-cabanada-57a74b279/) · [**✉️ Email**](mailto:tin.cabanada@gmail.com)
 
 ![React](https://img.shields.io/badge/React_19-20232A?logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
