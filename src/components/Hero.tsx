@@ -29,7 +29,7 @@ export default function Hero() {
           src={profile.cutout}
           alt={`Portrait of ${profile.name}`}
           width={900}
-          height={1350}
+          height={1280}
           fetchPriority="high"
           className="hero-photo absolute bottom-0 left-1/2 z-10 h-[78svh] w-auto max-w-none -translate-x-1/2 object-contain object-bottom sm:h-[86svh]"
         />

@@ -220,7 +220,7 @@ body::after {
 /* ---------- Intro: grid backdrop, typing caret, hanging ID card ---------- */
 .font-wide {
   font-family: var(--font-wide);
-  font-stretch: 125%;
+  font-stretch: 100%;
 }
 
 /* Intro and About: same page colors as everywhere else, with a faint grid. */
@@ -418,7 +418,7 @@ body::after {
 .goal-year {
   color: transparent;
   -webkit-text-stroke: 1.5px color-mix(in srgb, var(--paper) 18%, transparent);
-  font-stretch: 125%;
+  font-stretch: 100%;
 }
 
 /* ---------- Full-screen opener ----------
@@ -527,4 +527,14 @@ body::after {
     translate: none;
     transition: none;
   }
+}
+
+/* About: bento cards get a soft warm glow in the top corner. */
+.bento-card {
+  background-image: radial-gradient(28rem 16rem at 0% 0%, color-mix(in srgb, var(--signal) 7%, transparent), transparent 70%);
+}
+
+/* About: honors get a warm wash so they read as achievements. */
+.honor-card {
+  background-image: linear-gradient(120deg, color-mix(in srgb, var(--signal) 8%, transparent), transparent 60%);
 }

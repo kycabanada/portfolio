@@ -99,20 +99,59 @@ export default function Intro() {
             </a>
           </div>
 
-          <ul className="mt-10 space-y-2.5 font-mono text-[0.9375rem] text-muted">
-            <li>↓ explore my work below</li>
+          <div className="mt-12 max-w-xl">
+            {/* Now building */}
             {current && (
-              <li>
-                <a href={`#${current.id}`} className="hover:text-ink">
-                  → now building {current.title}: {current.tagline.toLowerCase()}
-                </a>
-              </li>
+              <a
+                href={`#${current.id}`}
+                className="group flex items-center gap-4 rounded-2xl border border-rule bg-surface/60 p-4 backdrop-blur transition-colors hover:border-ink/40"
+              >
+                <span className="relative flex size-2.5 shrink-0">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal opacity-60 motion-reduce:hidden" />
+                  <span className="relative inline-flex size-2.5 rounded-full bg-signal" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-muted">
+                    Now building
+                  </span>
+                  <span className="mt-1 block text-ink">
+                    <span className="font-wide font-extrabold uppercase">{current.title}</span>
+                    <span className="text-muted"> — {current.tagline}</span>
+                  </span>
+                </span>
+                <ArrowIcon className="size-5 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
+              </a>
             )}
-            <li>
-              ↗ {String(projects.length).padStart(2, "0")} projects ·{" "}
-              {String(certifications.length).padStart(2, "0")} certifications · {techCount} technologies
-            </li>
-          </ul>
+
+            {/* Numbers */}
+            <dl className="mt-4 grid grid-cols-3 divide-x divide-rule rounded-2xl border border-rule">
+              {[
+                [projects.length, "Projects"],
+                [certifications.length, "Certifications"],
+                [techCount, "Technologies"],
+              ].map(([n, label]) => (
+                <div key={label} className="flex flex-col-reverse gap-1 px-4 py-4 sm:px-5">
+                  <dt className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-muted sm:text-[0.6875rem]">
+                    {label}
+                  </dt>
+                  <dd className="font-wide text-3xl font-extrabold leading-none text-ink sm:text-4xl">
+                    {String(n).padStart(2, "0")}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            {/* Scroll cue */}
+            <a
+              href="#about"
+              className="group mt-8 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-ink"
+            >
+              <span className="flex size-8 items-center justify-center rounded-full border border-rule transition-colors group-hover:border-ink">
+                <span className="animate-bounce motion-reduce:animate-none">↓</span>
+              </span>
+              Explore my work below
+            </a>
+          </div>
         </div>
 
         {/* Hanging ID card */}
@@ -204,7 +243,7 @@ function Lanyard() {
                 src={profile.photo}
                 alt={`Photo of ${profile.name}`}
                 width={1000}
-                height={1500}
+                height={1501}
                 draggable={false}
                 className="aspect-[4/5] w-full rounded-lg object-cover object-[50%_20%]"
               />

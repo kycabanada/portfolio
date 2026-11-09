@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import ImageSlot from "./ImageSlot";
+import { useTheme } from "../useTheme";
 import { profile } from "../data/profile";
 import { projects } from "../data/projects";
 import { certifications } from "../data/certifications";
@@ -26,74 +27,163 @@ const stats = [
 
 const card = "rounded-2xl border border-rule bg-surface/70 backdrop-blur";
 
+// How far through the degree we are today, for the progress bar.
+const DEGREE_START = new Date(2023, 7, 1); // Aug 2023
+const DEGREE_END = new Date(2027, 5, 30); // Jun 2027
+const degreeProgress = Math.min(
+  1,
+  Math.max(0, (Date.now() - DEGREE_START.getTime()) / (DEGREE_END.getTime() - DEGREE_START.getTime())),
+);
+
 export default function About() {
   const { education, leadership } = profile;
+  const [lead, ...more] = profile.about;
 
   return (
     <section id="about" className="intro relative isolate overflow-hidden py-24 sm:py-32">
       <div aria-hidden="true" className="intro-grid absolute inset-0 -z-10" />
 
       <div className="shell">
-        <header className="reveal text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">About me</p>
-          <h2 className="font-wide mt-4 text-[clamp(2.2rem,5vw,4rem)] font-bold leading-tight tracking-[-0.01em]">
-            Background
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted">{profile.about[0]}</p>
+        {/* Header, centered */}
+        <header className="reveal mx-auto max-w-3xl border-b border-rule pb-12 text-center">
+          <div>
+            <p className="flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-muted">
+              <span className="text-signal">✦</span> About me
+            </p>
+            <h2 className="font-wide mt-4 text-[clamp(2.4rem,5.5vw,4.75rem)] font-extrabold leading-[0.95] tracking-[-0.02em]">
+              Background
+            </h2>
+          </div>
+          <div className="mx-auto mt-6 max-w-2xl space-y-3">
+            <p className="text-lg leading-relaxed text-ink">{lead}</p>
+            {more.map((p) => (
+              <p key={p} className="leading-relaxed text-muted">
+                {p}
+              </p>
+            ))}
+          </div>
         </header>
 
-        {/* Stat cards */}
-        <ul className="reveal mt-12 grid gap-4 sm:grid-cols-3">
-          {stats.map(({ label, value, href, Icon }) => (
-            <li key={label}>
-              <a
-                href={href}
-                className={`${card} group flex h-full flex-col justify-between gap-10 p-6 transition-colors hover:border-ink/40`}
-              >
-                <span className="flex items-start justify-between">
-                  <Icon className="size-5 text-ink" />
-                  <span className="font-wide text-3xl font-extrabold leading-none">{value}</span>
-                </span>
-                <span className="flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                  {label}
-                  <ArrowIcon className="size-4 text-ink transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        {/* Bento grid */}
+        <div className="reveal mt-12 grid gap-4 lg:grid-cols-12">
+          {/* Education: the big card */}
+          <article className={`${card} bento-card relative overflow-hidden p-6 sm:p-8 lg:col-span-7 lg:row-span-2`}>
+            <span
+              aria-hidden="true"
+              className="font-wide pointer-events-none absolute -bottom-8 -right-3 select-none text-[9rem] font-extrabold leading-none text-ink/[0.04] sm:text-[12rem]"
+            >
+              ’27
+            </span>
 
-        {/* Education and leadership */}
-        <div className="reveal mt-4 grid gap-4 md:grid-cols-2">
-          <InfoCard
-            icon={<CapIcon className="size-5" />}
-            eyebrow={`Education · ${education.period}`}
-            title={education.degree}
-            sub={`${education.school}, ${education.college}`}
-          >
-            <ul className="mt-4 space-y-2">
-              {education.honors.map((h) => (
-                <li key={h} className="flex items-start gap-2 text-sm text-ink">
-                  <StarIcon className="mt-0.5 size-4 shrink-0 text-signal" />
-                  {h}
-                </li>
-              ))}
+            <Eyebrow icon={<CapIcon className="size-4" />}>Education</Eyebrow>
+
+            <h3 className="mt-6 text-3xl font-bold leading-tight tracking-[-0.01em] sm:text-4xl">{education.degree}</h3>
+            <div className="mt-4 flex items-center gap-4">
+              <Logo src={UST_SEAL} alt="University of Santo Tomas seal" size="lg" />
+              <div>
+                <p className="text-ink">{education.school}</p>
+                <p className="text-sm text-muted">{education.college}</p>
+              </div>
+            </div>
+
+            {/* Degree progress */}
+            <div className="mt-8">
+              <div className="flex items-baseline justify-between font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-muted">
+                <span>{education.period.split("–")[0].trim()}</span>
+                <span className="text-ink">{Math.round(degreeProgress * 100)}% complete</span>
+                <span>Jun 2027</span>
+              </div>
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-ink/10">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-signal/60 to-signal"
+                  style={{ width: `${degreeProgress * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Honors: warm accent so they stand out */}
+            <p className="relative mt-8 flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-signal">
+              <StarIcon className="size-3.5" /> Honors
+            </p>
+            <ul className="relative mt-3 grid gap-3 sm:grid-cols-2">
+              {education.honors.map((h) => {
+                const [title, detail] = h.split(", ");
+                return (
+                  <li
+                    key={h}
+                    className="honor-card relative flex items-center gap-3.5 rounded-xl border border-rule border-l-2 border-l-signal bg-surface p-4 transition-colors hover:border-signal/40 hover:border-l-signal"
+                  >
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-signal/15 text-signal">
+                      <StarIcon className="size-[1.125rem] fill-current" />
+                    </span>
+                    <span className="leading-snug">
+                      <span className="block font-semibold text-ink">{title}</span>
+                      <span className="mt-0.5 block text-sm text-muted">{detail}</span>
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
-          </InfoCard>
-          <InfoCard
-            icon={<UsersIcon className="size-5" />}
-            eyebrow={`Leadership · ${leadership.period}`}
-            title={leadership.role}
-            sub={leadership.org}
-          >
-            <p className="mt-4 text-sm leading-relaxed text-muted">{leadership.summary}</p>
-          </InfoCard>
-        </div>
+          </article>
 
-        {/* Currently learning and beyond code */}
-        <div className="reveal mt-4 grid gap-4 md:grid-cols-2">
-          <ChipCard icon={<SparkIcon className="size-5" />} title="Currently learning" items={profile.learning} hint="Something new" />
-          <ChipCard icon={<HeartIcon className="size-5" />} title="Beyond code" items={profile.interests} hint="A hobby" />
+          {/* Leadership */}
+          <article className={`${card} bento-card p-6 sm:p-7 lg:col-span-5`}>
+            <div className="flex items-center justify-between gap-3">
+              <Eyebrow icon={<UsersIcon className="size-4" />}>Leadership</Eyebrow>
+              <span className="rounded-full border border-rule px-2.5 py-1 font-mono text-[0.6875rem] text-muted">
+                {leadership.period}
+              </span>
+            </div>
+            <h3 className="mt-5 text-xl font-bold leading-snug tracking-[-0.01em] sm:text-2xl">{leadership.role}</h3>
+            <div className="mt-3 flex items-center gap-3">
+              <span className="flex items-center gap-3">
+                <Logo src={UST_SEAL} alt="University of Santo Tomas seal" />
+                <Logo src="/logos/ust-site.webp" alt="UST SITE crest" />
+              </span>
+              <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">{leadership.org}</p>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-muted">{leadership.summary}</p>
+          </article>
+
+          {/* Numbers, in one strip */}
+          <ul className={`${card} grid grid-cols-3 divide-x divide-rule lg:col-span-5`}>
+            {stats.map(({ label, value, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  className="group flex h-full flex-col gap-4 p-4 transition-colors sm:p-5 hover:bg-ink/[0.03]"
+                >
+                  <span className="flex items-center justify-between text-muted">
+                    <Icon className="size-4" />
+                    <ArrowIcon className="size-3.5 opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink group-hover:opacity-100" />
+                  </span>
+                  <span>
+                    <span className="font-wide block text-3xl font-extrabold leading-none text-ink">
+                      {String(value).padStart(2, "0")}
+                    </span>
+                    <span className="mt-2 block font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-muted sm:text-[0.625rem] sm:tracking-[0.18em]">
+                      {label}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* Learning and beyond code, two cards side by side */}
+          <ChipGroup
+            icon={<SparkIcon className="size-4" />}
+            title="Currently learning"
+            blurb="What I'm picking up right now."
+            items={profile.learning}
+            live
+          />
+          <ChipGroup
+            icon={<HeartIcon className="size-4" />}
+            title="Beyond code"
+            blurb="What I enjoy when I'm away from the keyboard."
+            items={profile.interests}
+          />
         </div>
 
         {/* Photos */}
@@ -101,7 +191,7 @@ export default function About() {
           {profile.aboutPhotos.map((photo, i) => (
             <li key={photo.caption} className={`${card} overflow-hidden p-2 ${i === 0 ? "col-span-2 sm:col-span-1" : ""}`}>
               <figure>
-                <div className="aspect-[4/3] overflow-hidden rounded-xl grayscale transition-[filter] duration-500 hover:grayscale-0">
+                <div className="aspect-[4/3] overflow-hidden rounded-xl">
                   <ImageSlot
                     src={photo.src || undefined}
                     alt={photo.caption}
@@ -123,29 +213,29 @@ export default function About() {
   );
 }
 
-function InfoCard({
-  icon,
-  eyebrow,
-  title,
-  sub,
-  children,
-}: {
-  icon: ReactNode;
-  eyebrow: string;
-  title: string;
-  sub: string;
-  children: ReactNode;
-}) {
+// A logo with a transparent background. Pass { light, dark } when the logo
+// needs a different version per theme (the UST seal's ring text is dark on light).
+function Logo({ src, alt, size = "md" }: { src: string | { light: string; dark: string }; alt: string; size?: "md" | "lg" }) {
+  const { theme } = useTheme();
   return (
-    <div className={`${card} p-6 sm:p-7`}>
-      <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-        <span className="text-ink">{icon}</span>
-        {eyebrow}
-      </p>
-      <h3 className="font-wide mt-4 text-xl font-bold leading-snug">{title}</h3>
-      <p className="mt-1 text-sm text-muted">{sub}</p>
+    <img
+      src={typeof src === "string" ? src : src[theme]}
+      alt={alt}
+      loading="lazy"
+      draggable={false}
+      className={`w-auto shrink-0 object-contain ${size === "lg" ? "h-20 sm:h-24" : "h-14"}`}
+    />
+  );
+}
+
+const UST_SEAL = { light: "/logos/ust-seal-light.svg", dark: "/logos/ust-seal-dark.svg" };
+
+function Eyebrow({ icon, children }: { icon: ReactNode; children: ReactNode }) {
+  return (
+    <p className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] text-muted">
+      <span className="flex size-8 items-center justify-center rounded-lg border border-rule text-ink">{icon}</span>
       {children}
-    </div>
+    </p>
   );
 }
 
@@ -155,27 +245,48 @@ const HeartIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// A card of short chips; empty entries show as dashed "Coming soon" chips.
-function ChipCard({ icon, title, items, hint }: { icon: ReactNode; title: string; items: string[]; hint: string }) {
+// A card of short chips. "live" marks things in progress with a small pulsing dot.
+// If no items are filled in yet, a single dashed "coming soon" chip stands in.
+function ChipGroup({
+  icon,
+  title,
+  blurb,
+  items,
+  live = false,
+}: {
+  icon: ReactNode;
+  title: string;
+  blurb: string;
+  items: string[];
+  live?: boolean;
+}) {
+  const filled = items.filter(Boolean);
   return (
-    <div className={`${card} p-6 sm:p-7`}>
-      <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">
-        <span className="text-ink">{icon}</span>
-        {title}
-      </p>
-      <ul className="mt-5 flex flex-wrap gap-2">
-        {items.map((item, i) =>
-          item ? (
-            <li key={item} className="rounded-lg border border-rule bg-surface px-3 py-1.5 text-sm text-ink">
+    <article className={`${card} bento-card flex flex-col p-6 sm:p-7 lg:col-span-6`}>
+      <Eyebrow icon={icon}>{title}</Eyebrow>
+      <p className="mt-4 text-sm text-muted">{blurb}</p>
+      <ul className="mt-5 flex flex-wrap gap-2.5">
+        {filled.length ? (
+          filled.map((item) => (
+            <li
+              key={item}
+              className="inline-flex items-center gap-2 rounded-full border border-rule bg-paper/50 px-4 py-2 text-sm text-ink transition-colors duration-200 hover:border-signal/50 hover:bg-signal/5"
+            >
+              {live && (
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal opacity-50 motion-reduce:hidden" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-signal" />
+                </span>
+              )}
               {item}
             </li>
-          ) : (
-            <li key={`empty-${i}`} className="rounded-lg border border-dashed border-rule px-3 py-1.5 text-sm text-muted/70">
-              {hint} · coming soon
-            </li>
-          ),
+          ))
+        ) : (
+          <li className="rounded-full border border-dashed border-rule px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.15em] text-muted/70">
+            Coming soon
+          </li>
         )}
       </ul>
-    </div>
+    </article>
   );
 }

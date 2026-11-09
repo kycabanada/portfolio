@@ -9,7 +9,7 @@ export const profile = {
   // While this is empty, the GitHub link stays hidden.
   github: "https://github.com/kycabanada",
 
-  photo: "/kristine-portrait.jpg", // put the file in /public
+  photo: "/kristine-grad.jpg", // put the file in /public
   // Same photo with the background removed, for the full-screen opener.
   cutout: "/kristine-cutout.webp",
   status: "4th-year BS IT student · Open to internships",
@@ -27,21 +27,23 @@ export const profile = {
     "I'm a fourth-year IT student at the University of Santo Tomas. I build full-stack web apps and design the databases behind them.",
 
   // About section chips. Empty strings show as "Coming soon" slots.
-  learning: ["", "", ""], // what you're picking up now, e.g. "Next.js", "Unit testing", "AWS"
-  interests: ["", "", ""], // life outside code, e.g. "Photography", "Badminton", "K-dramas"
+  // TEMPLATE: starter items — swap these for what you're actually learning.
+  learning: ["Next.js", "Unit testing (Vitest)", "Docker", "AWS basics"],
+  // TEMPLATE: starter items — swap these for your real hobbies.
+  interests: ["Photography", "Badminton", "Coffee hopping", "K-dramas"],
 
   about: [
     "I work mainly with React, TypeScript, ASP.NET, PHP and MySQL, and I care most about building things that are easy for people to use.",
-    "Right now I'm working on AGOS, my capstone: an offline-first transit companion for Pasig River Ferry commuters.",
   ],
 
   // Photos in the About section. Put the files in /public/about and set "src",
   // e.g. src: "/about/hackathon.jpg". Until then a placeholder is shown.
   // The first photo is shown large. Edit the captions to describe your pictures.
   aboutPhotos: [
-    { src: "", caption: "At a tech event" },
-    { src: "", caption: "Building AGOS" },
-    { src: "", caption: "With my team" },
+    // TEMPLATE: free stock photos from Unsplash — replace with your own pictures.
+    { src: "/about/tech-event.webp", caption: "At a tech event" },
+    { src: "/about/building-agos.webp", caption: "Building AGOS" },
+    { src: "/about/team.webp", caption: "With my team" },
   ],
 
   education: {

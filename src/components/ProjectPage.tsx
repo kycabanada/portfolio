@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import type { ReactNode } from "react";
 import ImageSlot from "./ImageSlot";
 import TechIcon from "./TechIcon";
-import { projects } from "../data/projects";
 import { projectArt } from "./projectArt";
 import type { Project } from "../data/projects";
 import { useTheme } from "../useTheme";
@@ -43,8 +42,6 @@ const box = "rounded-2xl border border-rule bg-surface/70 shadow-card backdrop-b
 export default function ProjectPage({ project: p }: { project: Project }) {
   const { theme, toggle } = useTheme();
   const Art = projectArt[p.art];
-  const i = projects.indexOf(p);
-  const next = projects[(i + 1) % projects.length];
   const nextTheme = theme === "dark" ? "light" : "dark";
 
   useEffect(() => {
@@ -214,21 +211,6 @@ export default function ProjectPage({ project: p }: { project: Project }) {
         <ImageGroup title="Gallery" icon={<CameraIcon className="size-4" />} images={p.gallery} art={<Art className="size-7" />} accent={p.accent} cols="sm:grid-cols-3" />
         <ImageGroup title="Design Process" icon={<LayersIcon className="size-4" />} images={p.process} art={<Art className="size-7" />} accent={p.accent} cols="sm:grid-cols-2" />
 
-        {/* Next project */}
-        {next !== p && (
-          <a
-            href={projectPath(next.id)}
-            className={`${box} group mt-16 flex items-center justify-between gap-4 p-6 transition-colors hover:border-ink/30 sm:p-8`}
-          >
-            <span>
-              <span className="block font-mono text-[0.6875rem] uppercase tracking-[0.15em] text-muted">
-                Next project
-              </span>
-              <span className="font-wide mt-1 block text-xl font-bold sm:text-2xl">{next.title}</span>
-            </span>
-            <ArrowIcon className="size-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
-        )}
       </div>
     </main>
   );

@@ -7,12 +7,14 @@ const navigate = [
   { href: "#about", label: "About" },
   { href: "#journey", label: "Journey" },
   { href: "#portfolio", label: "Portfolio" },
-  { href: "#kind-words", label: "Kind words" },
+  { href: "#how-i-work", label: "How I work" },
   { href: "#contact", label: "Contact" },
 ];
 
 const heading = "font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-muted";
-const link = "inline-flex items-center gap-2 text-sm text-ink/80 transition-colors hover:text-ink";
+// Hover: the link turns orange, nudges right, and an underline draws in from the left.
+const link =
+  "relative inline-flex items-center gap-2 text-sm text-ink/80 transition-all duration-200 hover:translate-x-1 hover:text-signal after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:text-signal";
 
 export default function Footer() {
   const time = useManilaTime();
@@ -22,20 +24,23 @@ export default function Footer() {
       <div className="shell grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
         {/* About */}
         <div className="col-span-2 lg:col-span-1">
-          <a href="#top" className="font-mono text-base tracking-wide text-ink">
+          <a href="#top" className="font-mono text-base tracking-wide text-ink transition-opacity hover:opacity-70">
             kristine<span className="text-signal">.</span>c
           </a>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
             Full-stack web developer and BS IT student at UST, building web apps that are easy for
             people to use.
           </p>
-          <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-rule bg-surface px-3 py-1.5 text-xs text-ink">
+          <a
+            href="#contact"
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-rule bg-surface px-3 py-1.5 text-xs text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-[#22c55e]/60 hover:shadow-[0_4px_16px_-6px_rgba(34,197,94,0.5)]"
+          >
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#22c55e] opacity-60 motion-reduce:hidden" />
               <span className="relative inline-flex size-2 rounded-full bg-[#22c55e]" />
             </span>
             Open to internships
-          </p>
+          </a>
         </div>
 
         {/* Navigate */}
@@ -94,12 +99,12 @@ export default function Footer() {
       <div className="border-t border-rule">
         <div className="shell flex flex-col gap-4 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} kristine.c · Built with React, TypeScript and Tailwind CSS
+            © {new Date().getFullYear()} Kristine Cabanada. All rights reserved.
           </p>
-          <a href="#top" className="group inline-flex items-center gap-2 text-ink/80 hover:text-ink">
+          <a href="#top" className="group inline-flex items-center gap-2 text-ink/80 transition-colors hover:text-signal">
             Back to top
-            <span className="grid size-8 place-items-center rounded-full border border-rule transition-colors group-hover:border-ink/40">
-              <ArrowIcon className="size-3.5 -rotate-45" />
+            <span className="grid size-8 place-items-center rounded-full border border-rule transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-signal group-hover:bg-signal group-hover:text-paper">
+              <ArrowIcon className="size-3.5 -rotate-45 transition-transform group-hover:-translate-y-px" />
             </span>
           </a>
         </div>

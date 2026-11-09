@@ -8,8 +8,8 @@ export const nextGoal = {
   title: "Looking for an internship",
   description: "I want to build and ship real products with a team, and keep learning from people who do it well.",
   roles: ["Full-stack development", "QA and testing", "Database design"], // TODO: confirm the roles you want
-  available: "", // TODO: e.g. "From June 2027", or "Summer 2027, 600 hours"
-  setup: "", // TODO: e.g. "Onsite or hybrid in Metro Manila, or remote"
+  available: "Open to opportunities at any time",
+  setup: "Hybrid, on-site, or remote",
 };
 
 export type JourneyItem = {
@@ -63,8 +63,10 @@ export const journey: JourneyItem[] = [
   },
   {
     year: "2026",
-    date: "", // TODO: e.g. "Mar 2026"
-    title: "", // TODO: a hackathon, seminar or competition you joined
+    date: "Jul 2026",
+    title: "Create & Conquer Hackathon",
+    place: "Computer Engineering Organization · FEU Tech Innovation Center",
+    description: "Actively participated in the Computer Engineering Organization's Create & Conquer hackathon.",
     type: "event",
   },
   {

@@ -6,7 +6,7 @@ import Portfolio from "./components/Portfolio";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Journey from "./components/Journey";
-import Testimonials from "./components/Testimonials";
+import HowIWork from "./components/HowIWork";
 import Footer from "./components/Footer";
 import { useReveal } from "./useReveal";
 import ProjectPage from "./components/ProjectPage";
@@ -48,7 +48,7 @@ export default function App() {
         <About />
         <Journey />
         <Portfolio />
-        <Testimonials />
+        <HowIWork />
         <Contact />
       </main>
 

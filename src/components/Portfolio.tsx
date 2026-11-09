@@ -198,22 +198,28 @@ function CertGrid() {
               {c.name}
             </span>
             {c.issuer && <span className="mt-1 block text-xs text-muted">{c.issuer}</span>}
-            <span className="mt-0.5 block text-xs text-muted">Issued {c.date}</span>
+            <span className="mb-4 mt-0.5 block text-xs text-muted">Issued {c.date}</span>
             {c.verifyUrl && (
-              <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-ink">
-                Verify <ArrowIcon className="size-3" />
+              <span className="mt-auto inline-flex items-center gap-1.5 rounded-full border border-rule px-3.5 py-1.5 text-xs font-medium text-ink transition-colors group-hover:border-ink/50 group-hover:bg-ink/5">
+                Show credential <ArrowIcon className="size-3" />
               </span>
             )}
           </>
         );
         return (
-          <li key={c.name} className="text-center">
+          <li key={c.name} className="flex text-center">
             {c.verifyUrl ? (
-              <a href={c.verifyUrl} target="_blank" rel="noreferrer" className="group block">
+              <a
+                href={c.verifyUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${c.name}: show credential (opens in a new tab)`}
+                className="group flex w-full flex-col items-center"
+              >
                 {body}
               </a>
             ) : (
-              <div className="group">{body}</div>
+              <div className="group flex w-full flex-col items-center">{body}</div>
             )}
           </li>
         );
@@ -231,7 +237,6 @@ function StackGrid() {
           <h3 className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted">
             {g.name}
             <span aria-hidden="true" className="h-px flex-1 bg-rule" />
-            <span className="text-ink/40">{String(g.items.length).padStart(2, "0")}</span>
           </h3>
           <ul className="flex flex-wrap gap-3">
             {g.items.map((s) => (

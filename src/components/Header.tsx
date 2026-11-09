@@ -8,7 +8,7 @@ const links = [
   { href: "#top", label: "Home", sections: ["top", "intro"] },
   { href: "#about", label: "About", sections: ["about"] },
   { href: "#journey", label: "Journey", sections: ["journey"] },
-  { href: "#portfolio", label: "Portfolio", sections: ["portfolio", "kind-words"] },
+  { href: "#portfolio", label: "Portfolio", sections: ["portfolio", "how-i-work"] },
   { href: "#contact", label: "Contact", sections: ["contact"] },
 ];
 
@@ -70,7 +70,7 @@ export default function Header() {
                   <a
                     href={l.href}
                     aria-current={isActive ? "location" : undefined}
-                    className={`nav-link relative rounded-lg px-3 py-2 font-mono text-[0.8125rem] tracking-wide transition-colors duration-300 ${
+                    className={`nav-link relative rounded-lg px-3.5 py-2 font-mono text-[0.9375rem] tracking-wide transition-colors duration-300 ${
                       isActive ? "bg-ink/[0.07] text-ink" : "text-muted hover:text-ink"
                     }`}
                   >
