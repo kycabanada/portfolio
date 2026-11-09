@@ -119,13 +119,14 @@ export default function Contact() {
             <div className="grid gap-5 sm:grid-cols-2">
               <label className={label}>
                 Your name
-                <input name="name" required autoComplete="name" placeholder="Juan dela Cruz" className={field} />
+                <input name="name" required maxLength={100} autoComplete="name" placeholder="Juan dela Cruz" className={field} />
               </label>
               <label className={label}>
                 Your email
                 <input
                   name="email"
                   type="email"
+                  maxLength={254}
                   required
                   autoComplete="email"
                   placeholder="you@example.com"
@@ -139,6 +140,7 @@ export default function Contact() {
                 name="message"
                 required
                 rows={5}
+                maxLength={5000}
                 placeholder="Hi Kristine, …"
                 className={`${field} resize-y`}
               />

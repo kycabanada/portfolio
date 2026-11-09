@@ -9,7 +9,7 @@ export const profile = {
   // While this is empty, the GitHub link stays hidden.
   github: "https://github.com/kycabanada",
 
-  photo: "/kristine-grad.jpg", // put the file in /public
+  photo: "/kristine-grad.webp", // put the file in /public
   // Same photo with the background removed, for the full-screen opener.
   cutout: "/kristine-cutout.webp",
   status: "4th-year BS IT student · Open to internships",

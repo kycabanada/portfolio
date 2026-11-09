@@ -242,8 +242,8 @@ function Lanyard() {
               <img
                 src={profile.photo}
                 alt={`Photo of ${profile.name}`}
-                width={1000}
-                height={1501}
+                width={600}
+                height={901}
                 draggable={false}
                 className="aspect-[4/5] w-full rounded-lg object-cover object-[50%_20%]"
               />
